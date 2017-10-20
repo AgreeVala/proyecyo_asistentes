@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\UsuarioActivo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::put('actualizar/{id}', 'controllerActualizar@update');
+
+Route::put('actualizar/{id}', 'controllerActualizar@update')->middleware(UsuarioActivo::class);
+Route::post('/Crear', 'controllerActualizar@crear')->middleware(UsuarioActivo::class);
+Route::delete('delete/{id}', 'controllerActualizar@delete')->middleware(UsuarioActivo::class);
+Route::put('update/{id}', 'controllerActualizar@edit')->middleware(UsuarioActivo::class);
+Route::put('actualizando/{id}', 'controllerActualizar@actualizar')->middleware(UsuarioActivo::class);
+Route::get('/error', 'HomeController@error');
